@@ -69,29 +69,31 @@ int main()
             std::cin >> (sites+i)->houseQty;
             if ((sites+i)->houseQty < 1)
             {
-                std::cout << "There must be at least one house. Type again\n";
-                continue;
+                std::cout << "There must be at least one house. Type again: ";
             }
+            else
+                break;
         }
-        while(false);
+        while(true);
 
         (sites+i)->houses=new house[(sites+i)->houseQty];
 
         for(int j=0;j<(sites+i)->houseQty;j++)
         {
             std::cout << "HOUSE #" << j+1 << " of SITE#:" << i+1 << "\n";
-            std::cout << "How much floors does " << j+1 << " house has: ";
+            std::cout << "How much floors does the house has: ";
 
             do
             {
                 std::cin >> ((sites+i)->houses+j)->floorQty;
                 if(((sites+i)->houses+j)->floorQty>3||((sites+i)->houses+j)->floorQty<1)
                 {
-                    std::cout << "There should be from 1 to 3 floors";
-                    continue;
+                    std::cout << "There should be from 1 to 3 floors, type again: ";
                 }
+                else
+                    break;
             }
-            while(false);
+            while(true);
 
             ((sites+i)->houses+j)->floors=new floor[((sites+i)->houses+j)->floorQty];
 
@@ -108,11 +110,12 @@ int main()
                     std::cin >> (((sites+i)->houses+j)->floors+k)->roomQty;
                     if((((sites+i)->houses+j)->floors+k)->roomQty>4||(((sites+i)->houses+j)->floors+k)->roomQty<2)
                     {
-                        std::cout << "There should be from 2 to 4 rooms";
-                        continue;
+                        std::cout << "There should be from 2 to 4 rooms, type again: ";
                     }
+                    else
+                        break;
                 }
-                while(false);
+                while(true);
 
                 (((sites+i)->houses+j)->floors+k)->rooms=new room[(((sites+i)->houses+j)->floors+k)->roomQty];
 
@@ -142,17 +145,16 @@ int main()
                             ((((sites + i)->houses + j)->floors + k)->rooms + l)->type = KIDS;
                             break;
                         }
-                        else if (input == "living room")
+                        else if (input == "livingroom")
                         {
                             ((((sites + i)->houses + j)->floors + k)->rooms + l)->type = LIVING_ROOM;
                             break;
                         }
                         else {
-                            std::cout << "Not valid room, type again:\n";
-                            continue;
+                            std::cout << "Not valid room, type again:";
                         }
                     }
-                    while(false);
+                    while(true);
 
                     std::cout << "Type in room area: ";
                     std::cin >> ((((sites + i)->houses + j)->floors + k)->rooms + l)->square;
