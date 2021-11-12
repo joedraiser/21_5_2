@@ -97,7 +97,7 @@ int main()
 
             ((sites+i)->houses+j)->floors=new floor[((sites+i)->houses+j)->floorQty];
 
-            for(int k=0;k<((sites+i)->houses+j)->floorQty;j++)
+            for(int k=0;k<((sites+i)->houses+j)->floorQty;k++)
             {
                 std::cout << "FLOOR #" << k+1 << " OF HOUSE #" << j+1 << " OF SITE#" << i+1 << ":\n";
                 std::cout << "What is floor ceiling height: ";
@@ -122,7 +122,7 @@ int main()
                 for(int l=0;l<(((sites+i)->houses+j)->floors+k)->roomQty;l++)
                 {
                     std::cout << "ROOM #" << l+1 << " FLOOR #" << k+1 << " OF HOUSE #" << j+1 << " OF SITE#" << i+1 << ":\n";
-                    std::cout << "Type in type of room(bedroom, kitchen, bathroom, kidsroom, living room): ";
+                    std::cout << "Type in type of room(bedroom, kitchen, bathroom, kidsroom, livingroom): ";
                     do {
                         std::cin >> input;
                         if (input == "bedroom")
@@ -161,6 +161,23 @@ int main()
                 }
 
             }
+        }
+
+        std::cout << "How much buildings does site#" << i+1 << " has: ";
+        std::cin >> (sites+i)->buildings;
+
+        (sites+i)->buildings = new building[(sites+i)->buildingQty];
+
+        for(int j;j<(sites+i)->buildingQty;j++)
+        {
+            std::cout << "What is building#"<< j+1 << "type (garage, barn, bath): ";
+            std::cin >> input;
+            if(input == "garage")
+                ((sites+i)->buildings+j)->type=GARAGE;
+            if(input == "barn")
+                ((sites+i)->buildings+j)->type=GARAGE;
+            if(input == "bath")
+                ((sites+i)->buildings+j)->type=GARAGE;
         }
     }
 
