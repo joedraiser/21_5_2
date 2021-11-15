@@ -81,8 +81,20 @@ int main()
         for(int j=0;j<(sites+i)->houseQty;j++)
         {
             std::cout << "HOUSE #" << j+1 << " of SITE#:" << i+1 << "\n";
-            std::cout << "How much floors does the house has: ";
 
+            std::cout << "Does the house have a pipe? (y/n) ";
+            do {
+                std::cin >> input;
+                if (input == "y")
+                    ((sites + i)->houses + j)->pipe = true;
+                else if (input == "n")
+                    ((sites + i)->houses + j)->pipe = false;
+                else
+                    std::cout << "y or n: ";
+            }
+            while(input!="y"&&input!="n");
+
+            std::cout << "How much floors does the house has: ";
             do
             {
                 std::cin >> ((sites+i)->houses+j)->floorQty;
@@ -99,6 +111,8 @@ int main()
 
             for(int k=0;k<((sites+i)->houses+j)->floorQty;k++)
             {
+
+
                 std::cout << "FLOOR #" << k+1 << " OF HOUSE #" << j+1 << " OF SITE#" << i+1 << ":\n";
                 std::cout << "What is floor ceiling height: ";
                 std::cin >> (((sites+i)->houses+j)->floors+k)->ceilingHeight;
@@ -164,20 +178,102 @@ int main()
         }
 
         std::cout << "How much buildings does site#" << i+1 << " has: ";
-        std::cin >> (sites+i)->buildings;
+        std::cin >> (sites+i)->buildingQty;
 
         (sites+i)->buildings = new building[(sites+i)->buildingQty];
 
-        for(int j;j<(sites+i)->buildingQty;j++)
+        for(int j=0;j<(sites+i)->buildingQty;j++)
         {
             std::cout << "What is building#"<< j+1 << "type (garage, barn, bath): ";
             std::cin >> input;
             if(input == "garage")
                 ((sites+i)->buildings+j)->type=GARAGE;
             if(input == "barn")
-                ((sites+i)->buildings+j)->type=GARAGE;
+                ((sites+i)->buildings+j)->type=BARN;
             if(input == "bath")
-                ((sites+i)->buildings+j)->type=GARAGE;
+            {
+                ((sites + i)->buildings + j)->type = BATH;
+                std::cout << "Does bath have a pipe? (y/n)";
+                do {
+                    std::cin >> input;
+                    if (input == "y")
+                        ((sites + i)->buildings + j)->pipe = true;
+                    else if (input == "n")
+                        ((sites + i)->buildings + j)->pipe = false;
+                    else
+                        std::cout << "y or n: ";
+                }
+                while(input!="y"&&input!="n");
+            }
+        }
+    }
+
+    for(int i=0;i<sitesQty;i++)
+    {
+        std::cout << "SITE#" << i+1 << std::endl;
+        for(int j=0;j<(sites+i)->houseQty;j++)
+        {
+            std::cout << "    HOUSE#" << j+1 << std::endl;
+            if(((sites+i)->houses+j)->pipe)
+                std::cout << "        Has a pipe\n";
+            else
+                std::cout << "        Doesnt have a pipe\n";
+
+            for(int k=0;k<((sites+i)->houses+j)->floorQty;k++)
+            {
+                std::cout << "        FLOOR#" << k+1 << std::endl;
+                std::cout << "            ceiling height is " << (((sites+i)->houses+j)->floors+k)->ceilingHeight << std::endl;
+                for(int l=0;l<(((sites+i)->houses+j)->floors+k)->roomQty;l++)
+                {
+                    std::cout << "            ROOM#" << l+1 << std::endl;
+                    if( ((((sites+i)->houses+j)->floors+k)->rooms+l)->type==BED)
+                    {
+                        std::cout << "                BEDROOM\n";
+                        std::cout << "                Square: " << ((((sites+i)->houses+j)->floors+k)->rooms+l)->square << std::endl;
+                    }
+                    else if( ((((sites+i)->houses+j)->floors+k)->rooms+l)->type==KITCHEN)
+                    {
+                        std::cout << "                KITHCEN\n";
+                        std::cout << "                Square: " << ((((sites+i)->houses+j)->floors+k)->rooms+l)->square << std::endl;
+                    }
+                    else if( ((((sites+i)->houses+j)->floors+k)->rooms+l)->type==BATHROOM)
+                    {
+                        std::cout << "                BATHROOM\n";
+                        std::cout << "                Square: " << ((((sites+i)->houses+j)->floors+k)->rooms+l)->square << std::endl;
+                    }
+                    else if( ((((sites+i)->houses+j)->floors+k)->rooms+l)->type==KIDS)
+                    {
+                        std::cout << "                KIDSROOM\n";
+                        std::cout << "                Square: " << ((((sites+i)->houses+j)->floors+k)->rooms+l)->square << std::endl;
+                    }
+                    else if( ((((sites+i)->houses+j)->floors+k)->rooms+l)->type==LIVING_ROOM)
+                    {
+                        std::cout << "                LIVINGROOM\n";
+                        std::cout << "                Square: " << ((((sites+i)->houses+j)->floors+k)->rooms+l)->square << std::endl;
+                    }
+                }
+            }
+        }
+
+        for(int j=0;j<(sites+i)->buildingQty;j++)
+        {
+            std::cout << "    BUILDING#" << j+1 << std::endl;
+            if(((sites+i)->buildings+j)->type==GARAGE)
+            {
+                std::cout << "        GARAGE\n";
+            }
+            else if(((sites+i)->buildings+j)->type==BARN)
+            {
+                std::cout << "        BARN\n";
+            }
+            else if(((sites+i)->buildings+j)->type==BATH)
+            {
+                std::cout << "        BATH\n";
+                if(((sites+i)->buildings+j)->pipe)
+                    std::cout << "        It has a pipe\n";
+                else
+                    std::cout << "        Doesnt have a pipe\n";
+            }
         }
     }
 
